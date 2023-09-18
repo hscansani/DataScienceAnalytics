@@ -1,0 +1,43 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+
+df = pd.read_csv('https://raw.githubusercontent.com/abnr/ml-data/main/WA_Fn-UseC_-Telco-Customer-Churn.csv')
+
+
+dados = ('https://raw.githubusercontent.com/abnr/ml-data/main/WA_Fn-UseC_-Telco-Customer-Churn.csv')
+
+Existe NA nas variáveis? Quantos?
+
+df.isnull().sum()
+
+#Crie os gráficos para cada coluna separando a plotagem para clientes que fizeram churn versus clientes que não fizeram.
+
+#Mostrar o Dataframe
+df
+
+#Separar em dois Dataframes, um com o Churn como Yes e outro como No
+df_Churn = df[df['Churn']== "Yes"]
+df_NoChurn = df[df['Churn']== "No"]
+
+#Plotando gráficos com os Churns e os que não deram churn
+plt.hist(df_Churn['MonthlyCharges'])
+
+#Plotando gráficos com os Churns e os que não deram churn
+plt.hist(df_NoChurn['MonthlyCharges'])
+
+plt.boxplot(df_Churn['MonthlyCharges'])
+
+plt.boxplot(df_NoChurn['MonthlyCharges'])
+
+#Histograma comparando Churn Yes e Churn No 
+plt.hist(df_Churn['MonthlyCharges'], alpha = 0.5, label = 'Churn = Yes', density = True);
+plt.hist(df_NoChurn['MonthlyCharges'], alpha = 0.5, label = 'Churn = No', density = True);
+plt.legend()
+
+#Verificando os metodos de pagamento e plotando gráfico de barra no Data Frame com os Churns Yes
+df_Churn['PaymentMethod'].value_counts().plot(kind='bar')
+
+#Verificando os metodos de pagamento e plotando gráfico de barra no Data Frame com os Churns No
+df_NoChurn['PaymentMethod'].value_counts().plot(kind='bar')
